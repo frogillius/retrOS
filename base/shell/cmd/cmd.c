@@ -144,6 +144,39 @@
 #include "precomp.h"
 #include <reactos/buildno.h>
 #include <reactos/version.h>
+#include <windows.h>
+#include <stdio.h>
+
+
+// danger
+// Function to change the console text and background color
+void changeColor() {
+    static int colorIndex = 0;
+    const int colors[] = {
+        0x0F, // Black background, White text
+        0x1F, // Blue background, White text
+        0x2F, // Green background, White text
+        0x3F, // Aqua background, White text
+        0x4F, // Red background, White text
+        0x5F, // Purple background, White text
+        0x6F, // Yellow background, White text
+        0x7F  // White background, Black text
+    };
+    const int numColors = sizeof(colors) / sizeof(colors[0]);
+
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hConsole == INVALID_HANDLE_VALUE) return;
+
+    SetConsoleTextAttribute(hConsole, colors[colorIndex]);
+    colorIndex = (colorIndex + 1) % numColors;
+}
+
+int cmd_gay(int argc, char *argv[]) {
+    changeColor();
+    printf("Colors rotated!\n");
+    return 0;
+}
+// danger
 
 typedef NTSTATUS (WINAPI *NtQueryInformationProcessProc)(HANDLE, PROCESSINFOCLASS,
                                                           PVOID, ULONG, PULONG);
