@@ -60,6 +60,7 @@ list(APPEND SOURCE
     vol.c
     where.c
     window.c
+    gay.c
     precomp.h)
 
 add_rc_deps(cmd.rc ${CMAKE_CURRENT_SOURCE_DIR}/res/terminal.ico)
